@@ -1,0 +1,29 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  main {
+    flex: 1;
+  }
+
+  footer {
+    padding: 2rem;
+    text-align: center;
+    background: #f9fafb;
+  }
+} 

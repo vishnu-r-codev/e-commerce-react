@@ -1,0 +1,190 @@
+.cart-page {
+  padding: 2rem;
+  background: #f8fafc;
+  min-height: calc(100vh - 64px);
+
+  h1 {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    font-size: 2rem;
+    color: #1a202c;
+  }
+
+  .cart-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+
+    .cart-items {
+      .cart-item {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+
+        .item-image {
+          width: 120px;
+          flex-shrink: 0;
+
+          .placeholder-image {
+            aspect-ratio: 1;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+
+            h3 {
+              color: white;
+              font-size: 0.875rem;
+              text-align: center;
+              margin: 0;
+            }
+          }
+        }
+
+        .item-details {
+          flex: 1;
+
+          h2 {
+            font-size: 1.25rem;
+            color: #1a202c;
+            margin: 0 0 0.5rem;
+          }
+
+          .item-description {
+            color: #718096;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+          }
+
+          .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            .quantity-controls {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+
+              button {
+                width: 32px;
+                height: 32px;
+                border: 1px solid #e2e8f0;
+                background: white;
+                border-radius: 6px;
+                color: #4a5568;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                  background: #f7fafc;
+                }
+              }
+
+              input {
+                width: 48px;
+                height: 32px;
+                border: 1px solid #e2e8f0;
+                border-radius: 6px;
+                text-align: center;
+                font-size: 0.875rem;
+
+                &:focus {
+                  outline: none;
+                  border-color: #4299e1;
+                }
+              }
+            }
+
+            .item-price {
+              font-size: 1.25rem;
+              font-weight: 600;
+              color: #4299e1;
+            }
+
+            .remove-btn {
+              background: none;
+              border: none;
+              color: #e53e3e;
+              cursor: pointer;
+              padding: 0.5rem;
+              border-radius: 6px;
+              transition: all 0.2s;
+
+              &:hover {
+                background: #fff5f5;
+              }
+
+              i {
+                font-size: 1.25rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .order-summary {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      height: fit-content;
+
+      h2 {
+        font-size: 1.25rem;
+        color: #1a202c;
+        margin-bottom: 1.5rem;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+        color: #4a5568;
+        font-size: 0.875rem;
+      }
+
+      .summary-total {
+        display: flex;
+        justify-content: space-between;
+        margin: 1.5rem 0;
+        padding-top: 1rem;
+        border-top: 1px solid #e2e8f0;
+        font-weight: 600;
+        color: #1a202c;
+        font-size: 1.125rem;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        padding: 1rem;
+        background: #4299e1;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background: #3182ce;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cart-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+} 

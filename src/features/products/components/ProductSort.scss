@@ -1,0 +1,29 @@
+.product-sort {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  label {
+    color: #4a5568;
+    font-weight: 500;
+  }
+
+  select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: white;
+    color: #1a202c;
+    font-size: 0.875rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%234A5568' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+
+    &:focus {
+      outline: none;
+      border-color: #4299e1;
+    }
+  }
+} 

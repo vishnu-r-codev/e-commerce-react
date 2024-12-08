@@ -1,0 +1,126 @@
+.product-filters {
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1a202c;
+    }
+
+    button {
+      color: #4299e1;
+      background: none;
+      border: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .filter-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 1rem;
+    }
+
+    .categories-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .category-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        input {
+          cursor: pointer;
+        }
+
+        span {
+          font-size: 0.875rem;
+          color: #4a5568;
+        }
+      }
+    }
+
+    .price-inputs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      input {
+        width: 80px;
+        padding: 0.5rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        font-size: 0.875rem;
+
+        &:focus {
+          outline: none;
+          border-color: #4299e1;
+        }
+      }
+
+      span {
+        color: #718096;
+      }
+    }
+
+    .rating-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      .rating-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+
+        input {
+          cursor: pointer;
+        }
+
+        .stars {
+          display: flex;
+          gap: 1px;
+
+          .star {
+            color: #e2e8f0;
+            font-size: 1rem;
+
+            &.filled {
+              color: #f6ad55;
+            }
+          }
+        }
+
+        span:last-child {
+          font-size: 0.875rem;
+          color: #718096;
+        }
+      }
+    }
+  }
+} 

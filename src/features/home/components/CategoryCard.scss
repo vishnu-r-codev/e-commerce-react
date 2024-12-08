@@ -1,0 +1,46 @@
+.category-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+    .icon-wrapper {
+      background: #4299e1;
+      i {
+        color: white;
+      }
+    }
+  }
+
+  .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #ebf8ff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: all 0.3s ease;
+
+    i {
+      font-size: 2rem;
+      color: #4299e1;
+      transition: color 0.3s ease;
+    }
+  }
+
+  h3 {
+    color: #2d3748;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0;
+  }
+} 
