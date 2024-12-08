@@ -6,7 +6,7 @@ A full-featured e-commerce platform built with React, TypeScript, and Redux. Fea
 
 ### Shopping Experience
 - **Product Browsing**: Browse products with filters and search
-- **Product Details**: Detailed product views with images, descriptions, and specifications
+- **Product Details**: Detailed product views, descriptions, and specifications
 - **Shopping Cart**: Real-time cart management with quantity controls
 - **Checkout Process**: Streamlined checkout with multiple payment options
 
