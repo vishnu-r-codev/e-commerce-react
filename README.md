@@ -22,11 +22,6 @@ A full-featured e-commerce platform built with React, TypeScript, and Redux. Fea
 - **Search**: Search products by name or description
 - **Sorting**: Sort products by various criteria
 
-### Payment Integration
-- Credit/Debit Cards
-- PayPal
-- Apple Pay
-- Google Pay
 
 ## 🛠️ Technical Stack
 
@@ -51,26 +46,7 @@ A full-featured e-commerce platform built with React, TypeScript, and Redux. Fea
 
 ## 📁 Project Structure
 
-```
-ecommerce-app-react/
-├── src/
-│   ├── assets/              # Static assets
-│   │   ├── icons/
-│   │   └── images/
-│   ├── components/          # Shared components
-│   │   ├── layout/
-│   │   └── ui/
-│   ├── features/           # Feature modules
-│   │   ├── auth/
-│   │   ├── cart/
-│   │   ├── checkout/
-│   │   ├── home/
-│   │   ├── products/
-│   │   └── profile/
-│   ├── services/          # API services
-│   ├── store/            # Redux store
-│   ├── styles/           # Global styles
-│   └── types/            # TypeScript types
+
 ```
 
 ## 🚀 Getting Started
@@ -95,27 +71,14 @@ cd ecommerce-app-react
 npm install
 ```
 
-3. Create environment file:
 
-```bash
-cp .env.example .env
-```
-
-4. Update the `.env` file with your configuration:
-
-```env
-VITE_API_URL=http://localhost:3000
-VITE_STRIPE_PUBLIC_KEY=your_stripe_public_key
-VITE_PAYPAL_CLIENT_ID=your_paypal_client_id
-```
-
-5. Start the development server:
+3. Start the development server:
 
 ```bash
 npm run dev
 ```
 
-6. Open [http://localhost:5173](http://localhost:5173) in your browser
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
 ### Build for Production
 
@@ -131,31 +94,9 @@ npm run build
 npm run preview
 ```
 
-### Running Tests
 
-```bash
-# Run all tests
-npm run test
 
-# Run tests in watch mode
-npm run test:watch
 
-# Run tests with coverage
-npm run test:coverage
-```
-
-### Linting and Formatting
-
-```bash
-# Run ESLint
-npm run lint
-
-# Fix ESLint errors
-npm run lint:fix
-
-# Format code with Prettier
-npm run format
-```
 
 ## 🔧 Available Scripts
 
@@ -198,37 +139,7 @@ npm run format
 }
 ```
 
-## 🗄️ Directory Structure Explained
 
-```
-ecommerce-app-react/
-├── src/
-│   ├── assets/              # Static assets
-│   │   ├── icons/          # SVG icons and images
-│   │   └── images/         # Product and UI images
-│   ├── components/         # Shared components
-│   │   ├── layout/        # Layout components (Header, Footer)
-│   │   └── ui/           # UI components (Button, Input)
-│   ├── features/          # Feature modules
-│   │   ├── auth/         # Authentication feature
-│   │   ├── cart/         # Shopping cart feature
-│   │   ├── checkout/     # Checkout process
-│   │   ├── home/         # Home page feature
-│   │   ├── products/     # Product listing and details
-│   │   └── profile/      # User profile management
-│   ├── services/         # API and external services
-│   ├── store/           # Redux store configuration
-│   ├── styles/          # Global styles and themes
-│   └── types/           # TypeScript type definitions
-├── public/              # Static public assets
-├── tests/              # Test files
-├── .env.example        # Environment variables example
-├── .eslintrc.js       # ESLint configuration
-├── .prettierrc        # Prettier configuration
-├── tsconfig.json      # TypeScript configuration
-├── vite.config.ts     # Vite configuration
-└── package.json       # Project dependencies and scripts
-```
 
 ## 🔍 Development Guidelines
 
