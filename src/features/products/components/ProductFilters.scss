@@ -1,4 +1,9 @@
 .product-filters {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
   .filters-header {
     display: flex;
     justify-content: space-between;
@@ -7,51 +12,88 @@
 
     h3 {
       font-size: 1.125rem;
+      color: #2d3748;
       font-weight: 600;
-      color: #1a202c;
     }
 
-    button {
+    .clear-filters {
+      font-size: 0.875rem;
       color: #4299e1;
       background: none;
       border: none;
-      font-size: 0.875rem;
       cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
 
       &:hover {
-        text-decoration: underline;
+        background: #ebf8ff;
       }
     }
   }
 
   .filter-section {
     margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
 
     &:last-child {
       margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
     }
 
     h4 {
       font-size: 0.875rem;
-      font-weight: 600;
       color: #4a5568;
+      font-weight: 600;
       margin-bottom: 1rem;
     }
 
-    .categories-list {
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.75rem;
+
+      .category-btn {
+        padding: 0.625rem 1rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        color: #4a5568;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+          background: #f7fafc;
+          border-color: #cbd5e0;
+        }
+
+        &.active {
+          background: #ebf8ff;
+          border-color: #4299e1;
+          color: #2b6cb0;
+        }
+      }
+    }
+
+    .price-ranges {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
 
-      .category-option {
+      .price-range-item {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 4px;
+
+        &:hover {
+          background: #f7fafc;
+        }
 
         input {
           cursor: pointer;
@@ -64,39 +106,22 @@
       }
     }
 
-    .price-inputs {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      input {
-        width: 80px;
-        padding: 0.5rem;
-        border: 1px solid #e2e8f0;
-        border-radius: 4px;
-        font-size: 0.875rem;
-
-        &:focus {
-          outline: none;
-          border-color: #4299e1;
-        }
-      }
-
-      span {
-        color: #718096;
-      }
-    }
-
-    .rating-options {
+    .ratings-list {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
 
-      .rating-option {
+      .rating-item {
         display: flex;
         align-items: center;
         gap: 0.5rem;
         cursor: pointer;
+        padding: 0.25rem;
+        border-radius: 4px;
+
+        &:hover {
+          background: #f7fafc;
+        }
 
         input {
           cursor: pointer;
@@ -104,23 +129,46 @@
 
         .stars {
           display: flex;
-          gap: 1px;
+          align-items: center;
+          color: #f6ad55;
 
-          .star {
-            color: #e2e8f0;
+          i {
             font-size: 1rem;
-
-            &.filled {
-              color: #f6ad55;
-            }
           }
         }
 
-        span:last-child {
+        span {
           font-size: 0.875rem;
-          color: #718096;
+          color: #4a5568;
         }
       }
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .categories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-filters {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    border-radius: 12px 12px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease-in-out;
+
+    &.active {
+      transform: translateY(0);
+    }
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
   }
 } 

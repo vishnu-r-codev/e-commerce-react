@@ -1,0 +1,54 @@
+.cart-notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+
+  .notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    .success-icon {
+      color: #48bb78;
+      font-size: 1.5rem;
+    }
+
+    span {
+      color: #2d3748;
+      font-weight: 500;
+    }
+
+    .view-cart-btn {
+      padding: 0.375rem 0.75rem;
+      background: #4299e1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #3182ce;
+      }
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+} 

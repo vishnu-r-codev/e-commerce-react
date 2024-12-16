@@ -1,128 +1,116 @@
-
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { AppDispatch, RootState } from '../../store';
-import { register } from '../../store/authSlice';
+import { RootState } from '../../store';
+import { loginStart, loginSuccess, loginFailure } from '../../store/authSlice';
 import './styles/Auth.scss';
-import { useFormValidation } from '../../hooks/useFormValidation';
-import FormInput from '../../components/shared/FormInput';
 
 const Register = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const { isLoading, error } = useSelector((state: RootState) => state.auth);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-  const {
-    formData,
-    errors,
-    handleChange,
-    validateForm
-  } = useFormValidation(
-    {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    },
-    {
-      name: {
-        required: true,
-        minLength: 2,
-        maxLength: 50
-      },
-      email: {
-        required: true,
-        email: true
-      },
-      password: {
-        required: true,
-        minLength: 6,
-        pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
-      },
-      confirmPassword: {
-        required: true,
-        match: 'password'
-      }
-    }
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm()) {
+    if (formData.password !== formData.confirmPassword) {
+      dispatch(loginFailure('Passwords do not match'));
       return;
     }
 
+    dispatch(loginStart());
+
     try {
-      await dispatch(register({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
-      })).unwrap();
+      // Replace with your actual API call
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) throw new Error(data.message);
+
+      dispatch(loginSuccess(data));
       navigate('/profile');
-    } catch {
-      // Error is handled by the reducer
+    } catch (err) {
+      dispatch(loginFailure(err instanceof Error ? err.message : 'Registration failed'));
     }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
+    <div className="auth-page">
+      <div className="auth-container">
         <h1>Register</h1>
-        
-        {error && <div className="error-message">{error}</div>}
-        
         <form onSubmit={handleSubmit}>
-          <FormInput
-            label="Full Name"
-            id="name"
-            type="text"
-            value={formData.name}
-            onChange={(e) => handleChange('name', e.target.value)}
-            error={errors.name}
-            required
-          />
+          <div className="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <FormInput
-            label="Email"
-            id="email"
-            type="email"
-            value={formData.email}
-            onChange={(e) => handleChange('email', e.target.value)}
-            error={errors.email}
-            required
-          />
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <FormInput
-            label="Password"
-            id="password"
-            type="password"
-            value={formData.password}
-            onChange={(e) => handleChange('password', e.target.value)}
-            error={errors.password}
-            required
-          />
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <FormInput
-            label="Confirm Password"
-            id="confirmPassword"
-            type="password"
-            value={formData.confirmPassword}
-            onChange={(e) => handleChange('confirmPassword', e.target.value)}
-            error={errors.confirmPassword}
-            required
-          />
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Register'}
+          {error && <div className="error-message">{error}</div>}
+
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? 'Creating Account...' : 'Register'}
           </button>
-        </form>
 
-        <div className="auth-links">
-          <p>
+          <p className="auth-link">
             Already have an account? <Link to="/login">Login</Link>
           </p>
-        </div>
+        </form>
       </div>
     </div>
   );

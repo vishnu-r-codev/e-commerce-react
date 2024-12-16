@@ -48,9 +48,10 @@ const Checkout = () => {
     });
   };
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = total * 0.1; // 10% tax
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const shipping = 10; // Fixed shipping cost
+  const tax = subtotal * 0.1; // 10% tax
+  const total = subtotal + shipping + tax;
 
   if (isLoading) {
     return (
@@ -145,24 +146,51 @@ const Checkout = () => {
         </div>
 
         <div className="order-summary">
-          <h2>Order Summary</h2>
-          <div className="summary-row">
-            <span>Items ({itemCount})</span>
-            <span>${total.toFixed(2)}</span>
+          <div className="summary-header">
+            <h2>Order Summary</h2>
+            <span className="item-count">{items.length} items</span>
           </div>
-          <div className="summary-row">
-            <span>Shipping</span>
-            <span>Free</span>
+
+          <div className="summary-items">
+            {items.map(item => (
+              <div key={item.id} className="summary-item">
+                <div className="item-image">
+                  <img src={item.image} alt={item.name} />
+                  <span className="item-quantity">{item.quantity}</span>
+                </div>
+                <div className="item-info">
+                  <h3>{item.name}</h3>
+                  <div className="item-price">
+                    <span className="unit-price">${item.price.toFixed(2)} × {item.quantity}</span>
+                    <span className="total-price">${(item.price * item.quantity).toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="summary-row">
-            <span>Tax</span>
-            <span>${tax.toFixed(2)}</span>
+
+          <div className="summary-details">
+            <div className="summary-row">
+              <span>Subtotal</span>
+              <span>${subtotal.toFixed(2)}</span>
+            </div>
+            <div className="summary-row">
+              <span>Shipping</span>
+              <span>${shipping.toFixed(2)}</span>
+            </div>
+            <div className="summary-row">
+              <span>Tax (10%)</span>
+              <span>${tax.toFixed(2)}</span>
+            </div>
+            <div className="summary-total">
+              <span>Total</span>
+              <span>${total.toFixed(2)}</span>
+            </div>
           </div>
-          <div className="summary-total">
-            <span>Total</span>
-            <span>${(total + tax).toFixed(2)}</span>
-          </div>
-          <button className="place-order-btn">Place Order</button>
+
+          <button className="place-order-btn">
+            Place Order
+          </button>
         </div>
       </div>
     </div>

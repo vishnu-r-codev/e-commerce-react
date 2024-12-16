@@ -1,102 +1,77 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface User {
+interface User {
   id: number;
   email: string;
   name: string;
   avatar?: string;
 }
 
-export interface AuthState {
+interface AuthState {
   user: User | null;
-  loading: boolean;
+  token: string | null;
+  isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
-  user: null,
-  loading: false,
+  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  token: localStorage.getItem('token'),
+  isLoading: false,
   error: null,
-  isAuthenticated: false
+  isAuthenticated: !!localStorage.getItem('token')
 };
-
-// Mock authentication API calls
-export const login = createAsyncThunk(
-  'auth/login',
-  async (credentials: { email: string; password: string }) => {
-    // Simulate API call
-    return new Promise<User>((resolve, reject) => {
-      setTimeout(() => {
-        if (credentials.email === 'test@example.com' && credentials.password === 'password') {
-          resolve({
-            id: 1,
-            email: credentials.email,
-            name: 'Test User'
-          });
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000);
-    });
-  }
-);
-
-export const register = createAsyncThunk(
-  'auth/register',
-  async (userData: { email: string; password: string; name: string }) => {
-    // Simulate API call
-    return new Promise<User>((resolve) => {
-      setTimeout(() => {
-        resolve({
-          id: Math.floor(Math.random() * 1000),
-          email: userData.email,
-          name: userData.name
-        });
-      }, 1000);
-    });
-  }
-);
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    loginStart: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    loginSuccess: (state, action: PayloadAction<{ user: User; token: string }>) => {
+      state.isLoading = false;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      state.isAuthenticated = true;
+      state.error = null;
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('token', action.payload.token);
+    },
+    loginFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+      state.isAuthenticated = false;
+    },
     logout: (state) => {
       state.user = null;
+      state.token = null;
       state.isAuthenticated = false;
+      state.error = null;
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+    updateProfile: (state, action: PayloadAction<Partial<User>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+        localStorage.setItem('user', JSON.stringify(state.user));
+      }
     }
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(login.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-        state.isAuthenticated = true;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Login failed';
-      })
-      .addCase(register.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-        state.isAuthenticated = true;
-      })
-      .addCase(register.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Registration failed';
-      });
   }
 });
 
-export const { logout } = authSlice.actions;
+export const { 
+  loginStart, 
+  loginSuccess, 
+  loginFailure, 
+  logout, 
+  clearError,
+  updateProfile 
+} = authSlice.actions;
+
 export default authSlice.reducer; 

@@ -1,30 +1,41 @@
+import { useNavigate } from 'react-router-dom';
 import { Product } from '../../../types';
 import './ProductCard.scss';
 
 interface ProductCardProps {
   product: Product;
-  onClick: () => void;
 }
 
-const ProductCard = ({ product, onClick }: ProductCardProps) => {
+const ProductCard = ({ product }: ProductCardProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/products/${product.id}`);
+  };
+
   return (
-    <div className="product-card" onClick={onClick}>
+    <div className="product-card" onClick={handleClick}>
       <div className="product-image">
-        <img src={product.image} alt={product.name} />
+        <img src={product.image} alt={product.name} loading="lazy" />
       </div>
       <div className="product-info">
-        <h3>{product.name}</h3>
-        <p className="price">${product.price.toFixed(2)}</p>
-        <div className="rating">
-          {[...Array(5)].map((_, i) => (
-            <span 
-              key={i}
-              className={`star ${i < product.rating ? 'filled' : ''}`}
-            >
-              ★
-            </span>
-          ))}
-          <span className="count">({product.reviews} reviews)</span>
+        <h3 className="product-name">{product.name}</h3>
+        <div className="product-meta">
+          <div className="product-rating">
+            <div className="stars">
+              {[...Array(5)].map((_, i) => (
+                <i 
+                  key={i} 
+                  className="material-icons"
+                >
+                  {i < Math.floor(product.rating) ? 'star' : 
+                   i < product.rating ? 'star_half' : 'star_border'}
+                </i>
+              ))}
+            </div>
+            <span className="rating-count">({product.reviews})</span>
+          </div>
+          <div className="product-price">${product.price.toFixed(2)}</div>
         </div>
       </div>
     </div>
